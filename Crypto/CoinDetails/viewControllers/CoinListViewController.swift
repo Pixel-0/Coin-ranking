@@ -49,6 +49,7 @@ final class CoinListViewController: UIViewController {
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: CoinTableViewCell.reuseIdentifier)
+        tableView.register(CoinShimmerCell.self, forCellReuseIdentifier: CoinShimmerCell.reuseId)
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
@@ -85,9 +86,11 @@ final class CoinListViewController: UIViewController {
     }
     
     // MARK: - Pagination / Loading
-    private func loadNextPage() {
+    func loadNextPage() {
         guard !isLoading, totalCoinsLoaded < 100 else { return }
+        
         isLoading = true
+        tableView.reloadData()
         
         APIClient.shared.fetchCoins(limit: pageSize, offset: offset) { [weak self] result in
             DispatchQueue.main.async {
@@ -98,29 +101,33 @@ final class CoinListViewController: UIViewController {
                     self.coins.append(contentsOf: newCoins)
                     self.totalCoinsLoaded = self.coins.count
                     self.offset += self.pageSize
-                    self.applySelectedFilter()
-                case .failure(let error):
-                    print("Failed to load coins:", error)
+                case .failure(let err):
+                    print("failed to load coins:", err)
                 }
+                self.tableView.reloadData()
             }
         }
     }
+
 }
 
 // MARK: - UITableView DataSource & Delegate
 extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return coins.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CoinTableViewCell.reuseIdentifier, for: indexPath) as? CoinTableViewCell else {
-            return UITableViewCell()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        isLoading ? 10 : coins.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if isLoading {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CoinShimmerCell.reuseId, for: indexPath) as! CoinShimmerCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CoinTableViewCell.reuseIdentifier, for: indexPath) as! CoinTableViewCell
+            let coin = coins[indexPath.row]
+            cell.configure(with: coin)
+            return cell
         }
-        cell.configure(with: coins[indexPath.row])
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
