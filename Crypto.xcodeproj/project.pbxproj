@@ -14,17 +14,29 @@
 		CC8EE1F02EDFA8EC0004DF42 /* Exceptions for "Crypto" folder in "Crypto" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"CoinDetails/Extentions/UIViewController+Extenstion.swift",
 				Info.plist,
 			);
 			target = CC8EE1DD2EDFA8E90004DF42 /* Crypto */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		CC8EE25B2EE078300004DF42 /* Exceptions for "Crypto" folder in "Copy Bundle Resources" phase from "Crypto" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = CC8EE1DC2EDFA8E90004DF42 /* Resources */;
+			membershipExceptions = (
+				"CoinDetails/Extentions/UIViewController+Extenstion.swift",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CC8EE1E02EDFA8E90004DF42 /* Crypto */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				CC8EE1F02EDFA8EC0004DF42 /* Exceptions for "Crypto" folder in "Crypto" target */,
+				CC8EE25B2EE078300004DF42 /* Exceptions for "Crypto" folder in "Copy Bundle Resources" phase from "Crypto" target */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";

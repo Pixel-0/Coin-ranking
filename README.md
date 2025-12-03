@@ -4,6 +4,13 @@ An iOS application that displays cryptocurrency rankings, coin details, and char
 
 ---
 
+## Demo Videos
+
+| Light Mode | Dark Mode |
+|-----------|-----------|
+| [![Light Mode](https://img.youtube.com/vi/Vga1XyDsDQ0/0.jpg)](https://youtu.be/Vga1XyDsDQ0) | [![Dark Mode](https://img.youtube.com/vi/FjE-FxEXago/0.jpg)](https://youtu.be/FjE-FxEXago) |
+
+
 ## Features
 
 - List of top 100 cryptocurrencies with icons, prices, and 24h changes.

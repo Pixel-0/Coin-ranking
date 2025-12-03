@@ -114,13 +114,30 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard indexPath.row < favoriteCoins.count else { return nil }
         let coin = favoriteCoins[indexPath.row]
-        
-        let unfavoriteAction = UIContextualAction(style: .destructive, title: "Unfavorite") { _, _, completion in
+
+        let starImage = UIImage(systemName: "star.fill")?
+            .withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+
+        let action = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completion in
+            guard let self = self else { return }
+
             FavoriteManager.shared.remove(uuid: coin.uuid)
+
+            if indexPath.row < self.favoriteCoins.count {
+                self.favoriteCoins.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+
             completion(true)
         }
-        
-        return UISwipeActionsConfiguration(actions: [unfavoriteAction])
+
+        action.image = starImage
+        action.backgroundColor = .clear
+
+        return UISwipeActionsConfiguration(actions: [action])
     }
+
+
 }

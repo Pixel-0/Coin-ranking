@@ -150,17 +150,23 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let coin = coins[indexPath.row]
         let isFavorite = FavoriteManager.shared.isFavorite(uuid: coin.uuid)
-        let title = isFavorite ? "Unfavorite" : "Favorite"
         
-        let action = UIContextualAction(style: .normal, title: title) { _, _, completion in
+        let starImage = UIImage(systemName: isFavorite ? "star.fill" : "star")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+        
+        let action = UIContextualAction(style: .normal, title: "") { _, _, completion in
             if isFavorite {
                 FavoriteManager.shared.remove(uuid: coin.uuid)
             } else {
                 FavoriteManager.shared.add(uuid: coin.uuid)
             }
             completion(true)
+            tableView.reloadRows(at: [indexPath], with: .automatic) 
         }
-        action.backgroundColor = .systemBlue
+        
+        action.image = starImage
+        action.backgroundColor = .clear
+        
         return UISwipeActionsConfiguration(actions: [action])
     }
+
 }
