@@ -55,13 +55,13 @@ open Crypto.xcodeproj
 ### Challenges & Solutions
 
 - #### Shimmering loader for lists and details:
- Initially, we struggled to implement smooth shimmer placeholders for both the coin list and the detail screen. UIKit does not have built-in support for shimmering, so creating custom placeholder views with animations was tricky. We solved this by designing `CoinShimmerCell` for list items and `CoinDetailShimmerView` for the detail screen, providing immediate visual feedback while data loads.
+ Initially, I struggled to implement smooth shimmer placeholders for both the coin list and the detail screen. UIKit does not have built-in support for shimmering, so creating custom placeholder views with animations was tricky. I solved this by designing `CoinShimmerCell` for list items and `CoinDetailShimmerView` for the detail screen, providing immediate visual feedback while data loads.
 
 - #### Combining SwiftUI charts with UIKit:
-We embedded SwiftUI `Chart` views inside UIKit using `UIHostingController` to display historical price data with selectable ranges.
+I embedded SwiftUI `Chart` views inside UIKit using `UIHostingController` to display historical price data with selectable ranges.
 
 - #### Pagination & filtering of coins:
-Implemented UISegmentedControl for filtering by highest price or best 24-hour change, combined with scroll-based pagination to incrementally fetch the top 100 coins.
+Implemented `UISegmentedControl` for filtering by highest price or best 24-hour change, combined with scroll-based pagination to incrementally fetch the top 100 coins.
 
 
 ### Project Structure
